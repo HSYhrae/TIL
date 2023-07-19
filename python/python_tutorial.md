@@ -4,7 +4,7 @@
 
 ## 1. 사칙 연산
 
-- 뎃셈
+- 덧셈
 
 ```python
 23 + 27
@@ -237,6 +237,7 @@ round(10.578, ndigits = 2)
 
 - 논리 연산: 불린 연산(boolean operation)이라고도 한다.
 - 논리 연산의 결과로 True와 False가 있고 불(bool) 데이터이다.
+- 파이썬에서 True = 1, False = 0 으로 인식한다.
 
 ```python
 True
