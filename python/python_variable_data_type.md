@@ -1,6 +1,6 @@
 #  Python
 # 변수와 자료형
-## 1. 변수
+## 1. 변수 (Variable)
 - 반복적으로 사용되는 값을 필요할 때마다 계속 입력하는 것은 비효율적으므로 우리는 변수를 사용한다.
 - 파이썬에서는 등호를 사용하여 변수에 자료를 할당한다.
     - 그 후부터는 필요할 때 변수명을 이용하면 된다.
@@ -28,7 +28,7 @@ abc
 - 상수(constant variable): 한 번 지정한 후 그 값이 변하지 않는 변수
 - ex) PI(파이, 원주율)
 
-## 2. 자료형
+## 2. 자료형 (Data type)
 
 - 파이썬 자료형에는 숫자형, 문자형, 논리형이 있다.
 
@@ -86,7 +86,7 @@ abc
 
   
 
-## 3. 문자열
+## 3. 문자열 (String)
 
 - 문자열 표시를 위해선 문자열 시작과 끝에 큰따옴표(")나 작은 따옴표(')를 지정한다. 양쪽에 같은 기호 사용!
 
@@ -144,7 +144,7 @@ len(s1)
 
 
 
-- 인덱싱(Indexing)
+- 인덱싱 (Indexing)
 
 ```python
 s1 = 'This is indexing test'
@@ -166,7 +166,7 @@ print(s1[20])
 
 
 
-- 슬라이싱(Slicing)
+- 슬라이싱 (Slicing)
   - 문자열[이상:미만]
 
 ```python
@@ -183,7 +183,71 @@ print(s2[-4:])
 
 
 
-## 4. 리스트 
+- 포메팅 (Formating)
+
+  - 문자열 안의 특정값을 편하게 바꿀 수 있는 기능이다.
+
+  - 1. 숫자 대입 (포맷 코드, format 함수, f 문자열)
+
+    ```python
+    'My height is %d.' % 176
+    # My height is 176.
+    ```
+
+  - 2. 문자열 대입 (포맷 코드, format 함수, f 문자열)
+
+    ```python
+    'My %s is 176.' % 'height'
+    # My height is 176.
+    ```
+
+  - 3. 숫자 값을 변수로 대입 (포맷 코드, format 함수, f 문자열)
+
+    ```python
+    number = 176
+    'My height is %d' % number
+    # My height is 176
+    
+    ```
+
+  - 4. 2개 이상의 값 넣기
+
+    ```python
+    number = 176
+    word = 'height'
+    'My %s is %d' % (word, number)
+    # My height is 176
+    ```
+
+    
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+  - 1
+
+## 4. 리스트 (List)
 
 - 여러 데이터를 모아서 관리할 수 있게 만드는 것이다.
 - 대괄호([])를 사용해서 만든다.
@@ -327,4 +391,33 @@ print(l3)
   # [7, 6, 4, 2, 1]
   ```
 
-  
+
+
+
+## 5. 튜플 (Tuple)
+
+- 튜플의 속성은 리스트와 대부분 같다.
+- 다른점1: 대괄호([]) 대신 소괄호(()) 사용한다.
+- 다른점2: 데이터 입력된 후에는 항목을 변경하거나 삭제 수 없다.
+
+```python
+t1 = (1, 2, 3, 4)
+print(t1)
+# (1, 2, 3, 4)
+
+print(type(t1))
+# <class 'tuple'>
+
+t1[0] = 10
+# TypeError: 'tuple' object does not support item assignment
+
+del t1[0]
+# TypeError: 'tuple' object doesn't support item deletion
+
+print(t1[:3])
+# (1, 2, 3)
+
+print(t1[2])
+# 3
+```
+
