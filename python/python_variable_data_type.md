@@ -32,7 +32,7 @@ abc
 
 - 파이썬 자료형에는 숫자형, 문자형, 논리형이 있다.
 
-- 숫자형 (Numeric)
+### 1. 숫자형 (Numeric)
 
   - 정수, 2진수, 8진수, 16진수, 실수, 복소수(Complex, 파이썬에서는 i대신 j사용)
 
@@ -68,25 +68,9 @@ abc
   # <class 'complex'>
   ```
 
-- 문자형 (String)
 
-  - 문자열의 합, 곱
 
-  ```python
-  a = 'This is '
-  b = 'string!'
-  print(a + b)
-  # This is string!
-  
-  print(b * 4)
-  # string!string!string!string!
-  
-  print(type(a))
-  ```
-
-  
-
-## 3. 문자열 (String)
+### 2. 문자열 (String)
 
 - 문자열 표시를 위해선 문자열 시작과 끝에 큰따옴표(")나 작은 따옴표(')를 지정한다. 양쪽에 같은 기호 사용!
 
@@ -144,6 +128,23 @@ len(s1)
 
 
 
+- 문자열의 합, 곱
+
+```python
+a = 'This is '
+b = 'string!'
+print(a + b)
+# This is string!
+
+print(b * 4)
+# string!string!string!string!
+
+print(type(a))
+# <class 'str'>
+```
+
+
+
 - 인덱싱 (Indexing)
 
 ```python
@@ -187,64 +188,128 @@ print(s2[-4:])
 
   - 문자열 안의 특정값을 편하게 바꿀 수 있는 기능이다.
 
-  - 1. 숫자 대입 (포맷 코드, format 함수, f 문자열)
+  - 1. 숫자 대입 (포맷 코드, format 함수)
 
     ```python
+    # - 포맷 코드
     'My height is %d.' % 176
     # My height is 176.
+    
+    # - format 함수
+    'My height is {0}.'.format(176)
+    # My height is 176.
     ```
-
-  - 2. 문자열 대입 (포맷 코드, format 함수, f 문자열)
+  
+  - 2. 문자열 대입 (포맷 코드, format 함수)
 
     ```python
+    # - 포맷 코드
     'My %s is 176.' % 'height'
+    # My height is 176.
+    
+    # - format 함수
+    'My {0} is 176.'.format('height')
+    # My height is 176.
+    ```
+  
+  - 3. 숫자 값을 변수로 대입 (포맷 코드, format 함수)
+  
+    ```python
+    # - 포맷 코드
+    number = 176
+    'My height is %d.' % number
+    # My height is 176.
+    
+    # - format 함수
+    number = 176
+    'My height is {0}.'.format(number)
     # My height is 176.
     ```
 
-  - 3. 숫자 값을 변수로 대입 (포맷 코드, format 함수, f 문자열)
+  - 4. 2개 이상의 값 넣기 (포맷 코드, format 함수)
 
     ```python
-    number = 176
-    'My height is %d' % number
-    # My height is 176
-    
-    ```
-
-  - 4. 2개 이상의 값 넣기
-
-    ```python
+    # - 포맷 코드
     number = 176
     word = 'height'
-    'My %s is %d' % (word, number)
-    # My height is 176
-    ```
-
+    'My %s is %d.' % (word, number)
+    # My height is 176.
     
-
+    # - format 함수
+    number = 176
+    word = 'height'
+    'My {0} is {1}.'.format(word, number)
+    # My height is 176.
+    
+    'My {word} is {number}.'.format(word = 'height', number = 176)
+    # My height is 176.
+    ```
+  
+    
+  
+  - f 문자열 
+  
+  ```python
+  number = 176
+  word = 'height'
+  f'My {word} is {number}.'
+  # My height is 176.
+  
+  # - 계산식 사용도 가능
+  number = 176
+  f'My height is {number + 1}.'
+  # My height is 177.
+  
+  # - 딕셔너리 활용
+  d = {'word': 'height', 'number': '176'}
+  f'My {d["word"]} is {d["number"]}.'
+  # My height is 176.
+  ```
+  
+  
+  
+  - 정렬과 공백 (포맷 코드, format 함수, f 문자열)
+  
+  ```python
+  # - 포맷 코드 (좌측, 우측)
+  '%10s' % 'oh'
+  # '        oh'
+  
+  '%-10s' 'oh'
+  # 'oh        '
+  
+  # - format 함수 (좌측, 우측, 가운데, 공백)
+  '{0:<10}'.format('oh')
+  # 
+  ```
+  
+  
+  
+  - 소수점 표현 (포맷 코드, format 함수, f 문자열)
+  
+  ```python
+  ```
+  
+  
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
+  
   - 1
-
-  - 1
-
-  - 1
-
-  - 1
-
+  
   - 1
 
 ## 4. 리스트 (List)
