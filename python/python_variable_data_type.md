@@ -26,13 +26,12 @@ abc
     6. 예약어는 변수명으로 이용할 수 없다. (예약어는 'import keyword \n keyword.kwlist'로 확할 수 있다.)
 
 - 상수(constant variable): 한 번 지정한 후 그 값이 변하지 않는 변수
-- ex) PI(파이, 원주율)
+    - ex) PI(파이, 원주율)
+
 
 ## 2. 자료형 (Data type)
 
-- 파이썬 자료형에는 숫자형, 문자형, 논리형이 있다.
-
-### 1. 숫자형 (Numeric)
+### 1) 숫자형 (Numeric)
 
   - 정수, 2진수, 8진수, 16진수, 실수, 복소수(Complex, 파이썬에서는 i대신 j사용)
 
@@ -70,7 +69,7 @@ abc
 
 
 
-### 2. 문자열 (String)
+### 2) 문자열 (String)
 
 - 문자열 표시를 위해선 문자열 시작과 끝에 큰따옴표(")나 작은 따옴표(')를 지정한다. 양쪽에 같은 기호 사용!
 
@@ -116,18 +115,6 @@ print(s2)
 ("") 혹은 ('')도 입력 가능
 ```
 
-- Length
-  - 문자열이면 열의 길이 출력(띄어쓰기 포함)
-  - 리스트, 튜플 같은 형식이면 요소의 개소 출력
-
-```python
-s1 = 'This is length test'
-len(s1)
-# 19
-```
-
-
-
 - 문자열의 합, 곱
 
 ```python
@@ -146,6 +133,8 @@ print(type(a))
 
 
 - 인덱싱 (Indexing)
+  - 문자열[인덱스 값]
+
 
 ```python
 s1 = 'This is indexing test'
@@ -188,8 +177,22 @@ print(s2[-4:])
 
   - 문자열 안의 특정값을 편하게 바꿀 수 있는 기능이다.
 
-  - 1. 숫자 대입 (포맷 코드, format 함수)
+  - 포맷코드 
 
+  - | 코드 | 설명                     |
+    | :--- | ------------------------ |
+    | %s   | 문자열(String)           |
+    | %c   | 문자 1개(character)      |
+    | %d   | 정수(Ineteger)           |
+    | %f   | 부동소수(floating-point) |
+    | %o   | 8진수                    |
+    | %x   | 16진수                   |
+    | %%   | 그냥 % (문자 % 출력)     |
+  
+    
+
+  - 1. 숫자 대입 (포맷 코드, format 함수)
+  
     ```python
     # - 포맷 코드
     'My height is %d.' % 176
@@ -201,7 +204,7 @@ print(s2[-4:])
     ```
   
   - 2. 문자열 대입 (포맷 코드, format 함수)
-
+  
     ```python
     # - 포맷 코드
     'My %s is 176.' % 'height'
@@ -211,9 +214,9 @@ print(s2[-4:])
     'My {0} is 176.'.format('height')
     # My height is 176.
     ```
-  
+
   - 3. 숫자 값을 변수로 대입 (포맷 코드, format 함수)
-  
+
     ```python
     # - 포맷 코드
     number = 176
@@ -225,9 +228,9 @@ print(s2[-4:])
     'My height is {0}.'.format(number)
     # My height is 176.
     ```
-
+  
   - 4. 2개 이상의 값 넣기 (포맷 코드, format 함수)
-
+  
     ```python
     # - 포맷 코드
     number = 176
@@ -272,15 +275,41 @@ print(s2[-4:])
   
   ```python
   # - 포맷 코드 (좌측, 우측)
-  '%10s' % 'oh'
-  # '        oh'
-  
   '%-10s' 'oh'
   # 'oh        '
   
+  '%10s' % 'oh'
+  # '        oh'
+  
+  
   # - format 함수 (좌측, 우측, 가운데, 공백)
   '{0:<10}'.format('oh')
-  # 
+  # 'oh        '
+  
+  '{0:>10}'.format('oh')
+  # '        oh'
+  
+  '{0:^10}'.format('oh')
+  # '    oh    '
+  
+  '{0:=^10}'.format('oh')
+  #'====oh===='
+  
+  '{0:!<10}'.format('oh')
+  #'oh!!!!!!!!'
+  
+  # - f 문자열 (좌측, 우측, 가운데, 공백)
+  f'{"oh":<10}'
+  # 'oh        '
+  
+  f'{"oh":>10}'
+  # '        oh'
+  
+  f'{"oh":^10}'
+  # '    oh    '
+  
+  f'{"oh":=^10}'
+  # '====oh===='
   ```
   
   
@@ -288,201 +317,212 @@ print(s2[-4:])
   - 소수점 표현 (포맷 코드, format 함수, f 문자열)
   
   ```python
+  # -포맷 코드
+  "%0.4f" % 3.141592
+  # 3.1416 				# 반올림을 해주는 것을 알 수 있음
+  
+  "%10.4" % 3.141592
+  # '    3.1416'			# 총 10칸을 사용하며 오른쪽 정렬을 시킴
+  
+  "%-10.4" % 3.141592
+  # '3.1416    '			# 총 10칸을 사용하며 왼쪽 정렬을 시킴
+  
+  # -format 함수
+  pi = 3.141592
+  "{0:0.4f}".format(pi)
+  # 3.1416
+  
+  "{0:10.4f}".format(pi)		# 숫자 앞에 '>'는 생략해도 됨
+  # '    3.1416'
+  
+  "{0:<10.4f}".format(pi)
+  # '3.1416    '
+  
+  # -f 문자열
+  pi = 3.141592
+  f'{pi:0.4f}'
+  # 3.1416
+  
+  f'{pi:10.4f}'
+  # '    3.1416'
+  
+  f'{pi:<10.4f}'
+  # '3.1416    '
   ```
   
   
   
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
-  
-  - 1
+  - 문자열 관련 함수 (문자열 변수 뒤에 '.'을 붙이고 함수 이름을 입력한다.)
+    
+  	- 문자열 관련 함수들은 함수를 사용한다고 변수의 값이 변하지 않는다. 따라서 완전히 바꾸고 싶다면 대입문(a = a.함수())을 사용해야 한다.
+  	- count(찾을 값): 문자 개수 세는 함수
+  	
+  	```python
+  	a = 'swimming'
+  	a.count('i')
+  	# 2
+  	
+  	a.count('m')
+  	# 2
+  	```
+  	
+  	
+  	
+  	- find(찾을 값, 시작인덱스, 종료인덱스): 위치 알려주는 함수
+  	- index(찾을 값, 시작인덱스, 종료인덱): 위치 알려주는 함수
+  	
+  	```python
+  	a = 'I want to find the location.'
+  	a.find('a') 
+  	# 3
+  	
+  	a.find('a', 4)
+  	# 22
+  	
+  	a.index('a')
+  	# 3
+  	
+  	a.index('a', 4)
+  	# 22
+  	```
+  	
+  	- find와 index 차이점
+  	
+  	```python
+  	a = 'I want to find the location.'
+  	a.find('k')
+  	# -1			# 찾는 값이 없으면 -1 반환
+  	
+  	a.index('k')
+  	# ValueError: substring not found	# 찾는 값이 없으면 오류 발생
+  	```
+  	
+  	
+  	
+  	- len(문자열): 문자열이면 열의 길이 출력(띄어쓰기 포함)
+  	
+  	  - 리스트, 튜플 같은 형식이면 요소의 개소 출력
+  	
+  	  ```python
+  	  s1 = 'This is length test'
+  	  len(s1)
+  	  # 19
+  	  ```
+  	
+  	  
+  	
+  	- 구분자.join(문자열): 문자열 사이에 구분자를 삽입
+  	
+  	```python
+  	" ".join('qwer')
+  	# q w e r
+  	```
+  	
+  	
+  	
+  	- split(구분자): 문자열을 구분자로 나눔(리스트 형태로 반환)
+  	
+  	```python
+  	a = "I'm using split method."
+  	a.split()
+  	# ["I'm", 'using', 'split', 'method.']
+  	
+  	b = 'q:w:e:r:t'
+  	b.split(':')
+  	# ['q', 'w', 'e', 'r', 't']
+  	```
+  	
+  	
+  	
+  	- upper(문자열): 소문자를 대문자로 바꿈
+  	- lower(문자열): 대문자를 소문자로 바꿈
+  	
+  	```python
+  	a = 'ok'
+  	a.upper()
+  	# OK
+  	
+  	b = 'OK'
+  	b.lower()
+  	# ok
+  	```
+  	
+  	
+  	
+  	- strip(제거할 값): 양쪽의 공백 제거
+  	- lstrip(제거할 값): 왼쪽의 공백 제거
+  	- rstrip(제거할 값): 오른쪽의 공백 제거
+  	
+  	```
+  	a = '--ok--'
+  	a.strip('-')
+  	# ok
+  	
+  	a.lstrip('-')
+  	# ok--
+  	
+  	a.rstrip('-')
+  	# --ok
+  	```
+  	
+  	
+  	
+  	- replace(기존 값, 변경할 값, 변경횟수): 변경횟수만큼 값을 변경함(횟수 지정하지 않으면 전부 변경)
+  	
+  	```python
+  	a = 'I like you.'
+  	a.replace('like', 'love')
+  	# I love you.
+  	
+  	b = 'q,w,e,r,t'
+  	b.replace(',', ':', 1)
+  	# q:w,e,r,t
+  	
+  	b.replace(',', ':', 3)
+  	# q:w:e:r,t
+  	```
+  	
+  	
 
-## 4. 리스트 (List)
+## 불 자료형 (Bool)
 
-- 여러 데이터를 모아서 관리할 수 있게 만드는 것이다.
-- 대괄호([])를 사용해서 만든다.
-- 다양한 데이터 타입이 올 수 있다. (문자열, 숫자, 불, 리스트, 튜플, 딕셔너리, 세트 등)
-- 콤마(,)로 구분하며 아무것도 쓰지 않으면 빈 리스트가 생성된다.
+- 참(True)과 거짓(False)을 나타내는 자료형 (각 문자의 첫 글자는 무조건 대문자로 작성해야함)
+- 자료형별로 참(1, 'word' [1, 2, 3], (1, 2, 3), {'a': 1, 'b': 2}), 거짓(0, '', [], (), {}, None)
+  - 1 혹은 각 자료형에 내용이 있다면 참(True), 0, None 혹은 각 자료형에 내용이 없으면 거짓(False)
+- bool(내용): 괄호안에 내용이 참인지 거짓인지 알려주는 함수
 
 ```python
-l1 = [1, 2, 3, 4, 5]
-print(l1)
-# [1, 2, 3, 4, 5]
-print(len(l1))
-# 5
-print(type(l1))
-# <class 'list'>
+bool(1)
+# True
 
-l2 = ['일', '이', '삼', '사', '오']
-print(l2)
-# ['일', '이', '삼', '사', '오']
-print(len(l2))
-# 5
-print(type(l2))
-# <class 'list'>
-```
+bool(0)
+# False
 
+bool('word')
+# True
 
+bool('')
+# False
 
-- 인덱싱(Indexing), 슬라이싱(Slicing)
+bool([1, 2, 3])
+# True
 
-```python
-l3 = [1, '이', 3, '사', ['오', 6], ('칠', '팔', '구')]
-print(l3[1])
-# 이
+bool([])
+# False
 
-print(l3[3:5])
-# ['사', ['오', 6]]
+bool((1, 2, 3))
+# True
 
-print(l3[4][1])
-# 6
-print(type(l3[4]))
-#<class 'list'>
+bool(())
+# False
 
-print(l3[5][2])
-# 구
-print(type(l3[5]))
-# <class 'tuple'>
+bool({'a': 1, 'b': 2})
+# True
 
-print(l3[::2])
-# [1, 3, ['오', 6]]
-```
+bool({})
+# False
 
-
-
-- 값 바꾸기, 값 삭제하기
-
-```python
-l3 = [1, '이', 3, '사', ['오', 6], ('칠', '팔', '구')]
-l3[1] = 2
-print(l3)
-# [1, 2, 3, '사', ['오', 6], ('칠', '팔', '구')]
-
-l3[4:] = []
-print(l3)
-# [1, 2, 3, '사']
-
-del l3[3]
-print(l3)
-# [1, 2, 3]
-```
-
-
-
-- 리스트 메서드 활용
-
-  - append: 항목 하나를 맨 마지막에 추가
-  - extend: 항목 여러개를 맨 마지막에 추가
-  - insert: 특정 위치에 항목을 삽입
-
-  ```python
-  l4 = [1, 2, 3, 4]
-  l4.append(5)
-  print(l4)
-  # [1, 2, 3, 4, 5]
-  
-  l4.extend([7, 8])
-  print(l4)
-  # [1, 2, 3, 4, 5, 7, 8]
-  
-  l4.insert(5, 6)
-  print(l4)
-  # [1, 2, 3, 4, 5, 6, 7, 8]
-  ```
-
-  
-
-  - remove: 입력값과 첫 번째로 일치하는 항목을 리스트에서 삭제
-  - pop: 마지막 항목을 제거한 후에 반환
-
-  ```python
-  l5 = [1, 2, 3, 4, 5, 6, 3, 3]
-  
-  l5.remove(3)
-  print(l5)
-  # [1, 2, 4, 5, 6, 3, 3]
-  
-  l5_pop = l5.pop()
-  print(l5_pop)
-  # 3
-  print(l5)
-  # [1, 2, 4, 5, 6, 3]
-  ```
-
-  
-
-  - index: 인자와 일치하는 첫 번째 항목의 위치를 반환
-  - count: 인자와 일치하는 항목의 개수를 반환
-
-  ```python
-  l6 = [1, 2, 3, 4, 5, 4, 4, 5]
-  l6_index = l6.index(4)
-  print(l6_index)
-  # 3
-  
-  l6_count = l6.count(5)
-  print(l6_count)
-  # 2
-  ```
-
-  
-
-  - sort: 순방향으로 정렬
-  - reverse: 역방향으로 정렬
-
-  ```python
-  l7 = [2, 7, 6, 4, 1]
-  l7.sort()
-  print(l7)
-  # [1, 2, 4, 6, 7]
-  
-  l7.reverse()
-  print(l7)
-  # [7, 6, 4, 2, 1]
-  ```
-
-
-
-
-## 5. 튜플 (Tuple)
-
-- 튜플의 속성은 리스트와 대부분 같다.
-- 다른점1: 대괄호([]) 대신 소괄호(()) 사용한다.
-- 다른점2: 데이터 입력된 후에는 항목을 변경하거나 삭제 수 없다.
-
-```python
-t1 = (1, 2, 3, 4)
-print(t1)
-# (1, 2, 3, 4)
-
-print(type(t1))
-# <class 'tuple'>
-
-t1[0] = 10
-# TypeError: 'tuple' object does not support item assignment
-
-del t1[0]
-# TypeError: 'tuple' object doesn't support item deletion
-
-print(t1[:3])
-# (1, 2, 3)
-
-print(t1[2])
-# 3
+bool(None)
+# False
 ```
 
