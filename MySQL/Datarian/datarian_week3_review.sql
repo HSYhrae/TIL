@@ -1,30 +1,26 @@
+-- 스키마명 변경(-이 있어서 계속 오류 발생)
+CREATE DATABASE e_commerce;
+
+RENAME TABLE `e-commerce`.customer TO e_commerce.customer;
+RENAME TABLE `e-commerce`.discount TO e_commerce.discount;
+RENAME TABLE `e-commerce`.marketing TO e_commerce.marketing;
+RENAME TABLE `e-commerce`.onlinesales TO e_commerce.onlinesales;
+RENAME TABLE `e-commerce`.tax TO e_commerce.tax;
+
+DROP DATABASE `e-commerce`;
+
 -- EDA
--- customer 테이블 데이터 10개 확인
-SELECT *
-FROM customer
-LIMIT 10;
+USE e_commerce;
 
 -- onlinesales 테이블 데이터 10개 확인
 SELECT *
 FROM onlinesales
 LIMIT 10;
 
--- onlinesales 테이블의 'USER_0541' 고객의 주문횟수는?
-SELECT COUNT(order_id)
-	, COUNT(DISTINCT order_id) 
-FROM onlinesales
-WHERE customer_id = 'USER_0541';
-
--- onlinesales 테이블의 'USER_0541' 고객의 주문한 총금액은?
-SELECT SUM(quantity * avg_cost) AS sales
-FROM onlinesales
-WHERE customer_id = 'USER_0541';
-
--- onlinesales 테이블의 'USER_0541' 고객의 마지막 주문일은?
-SELECT MIN(date)
-	, MAX(date)
-FROM onlinesales
-WHERE customer_id = 'USER_0541';
+-- customer 테이블 데이터 10개 확인
+SELECT *
+FROM customer
+LIMIT 10;
 
 -- onlinesales 테이블의 결측치 확인해보기
 SELECT COUNT(*)
@@ -42,6 +38,25 @@ FROM onlinesales;
 SELECT MIN(date)
 	, MAX(date)
 FROM onlinesales;
+
+-- onlinesales 테이블의 총 매출, 평균 매출 확인
+SELECT ROUND(SUM(quantity * avg_cost), 2)
+	, ROUND(AVG(quantity * avg_cost), 2)
+FROM onlinesales;
+
+-- onlinesales 테이블의 총 배송비, 평균 배송비 확인
+SELECT ROUND(SUM(shipping_fee), 2)
+	, ROUND(AVG(shipping_fee), 2)
+FROM onlinesales;
+
+-- onlinesales 테이블의 쿠폰 상태 컬럼에 무슨 값이 있는지
+SELECT DISTINCT coupon_status
+FROM onlinesales;
+
+-- onlinesales 테이블의 카테고리 컬럼에 무슨 값이 있는지
+SELECT DISTINCT category
+FROM onlinesales
+ORDER BY category;
 
 -- RFM 고객 세분화 분석
 -- onlinesales 테이블의 고객별 Recency 계산
@@ -131,7 +146,7 @@ FROM (SELECT customer_id
 GROUP BY Monetary
 ORDER BY Monetary;
 
--- RFM 고객 세분화
+-- RFM별 고객 수 확인
 SELECT CASE 
 		WHEN o.last_order_date > '2019-12-01' THEN 'recent'
         ELSE 'past'
@@ -194,20 +209,10 @@ UNION ALL
 SELECT *
 FROM titanic_train;
 
--- 스키마명 변경(-이 있어서 계속 오류 발생)
-CREATE DATABASE e_commerce;
-
-RENAME TABLE `e-commerce`.customer TO e_commerce.customer;
-RENAME TABLE `e-commerce`.discount TO e_commerce.discount;
-RENAME TABLE `e-commerce`.marketing TO e_commerce.marketing;
-RENAME TABLE `e-commerce`.onlinesales TO e_commerce.onlinesales;
-RENAME TABLE `e-commerce`.tax TO e_commerce.tax;
-
-DROP DATABASE `e-commerce`;
-
 -- INNER JOIN 
 USE e_commerce;
 
+-- customer 테이블과 onlinesales 테이블을 INNER JOIN 
 SELECT *
 FROM customer AS c
 	INNER JOIN onlinesales AS o ON c.customer_id = o.customer_id;
@@ -218,7 +223,7 @@ FROM customer AS c
 	INNER JOIN onlinesales AS o ON c.customer_id = o.customer_id
 WHERE sex = 'female';
 
--- 성별이 여성인 고객의 고객id, 성별, 지역, 제품id, 제품분류, 쿠폰 상태, 할인율 추출하세요.
+-- 성별이 여성인 고객의 고객id, 성별, 지역, 제품id, 제품분류, 쿠폰 상태, 할인율 추출
 SELECT c.customer_id
 	, c.sex
 	, c.local
@@ -230,13 +235,3 @@ FROM customer AS c
 	INNER JOIN onlinesales AS o ON o.customer_id = c.customer_id
     INNER JOIN discount AS d ON d.category = o.category
 WHERE sex = 'female'
-
-
-
-
-
-
-
-
-
-
