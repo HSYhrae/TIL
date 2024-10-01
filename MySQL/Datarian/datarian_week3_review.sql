@@ -64,7 +64,7 @@ ORDER BY category;
 SELECT customer_id
 	, MAX(date) AS last_order_date
     , CASE 
-		WHEN MAX(date) > '2019-12-01' THEN 'recent'
+		WHEN MAX(date) >= '2019-12-01' THEN 'recent'
         ELSE 'past'
 	END AS Recency
 FROM onlinesales
@@ -90,7 +90,8 @@ SELECT customer_id
         ELSE 'low'
 	END AS Monetary
 FROM onlinesales
-GROUP BY customer_id;
+GROUP BY customer_id
+ORDER BY customer_id;
 
 -- 서브쿼리용
 SELECT customer_id
@@ -102,7 +103,7 @@ GROUP BY customer_id;
 
 -- Recency별 고객 수 확인
 SELECT CASE 
-		WHEN o.last_order_date > '2019-12-01' THEN 'recent'
+		WHEN o.last_order_date >= '2019-12-01' THEN 'recent'
         ELSE 'past'
 	END AS Recency
     , COUNT(customer_id) AS customers
@@ -148,7 +149,7 @@ ORDER BY Monetary;
 
 -- RFM별 고객 수 확인
 SELECT CASE 
-		WHEN o.last_order_date > '2019-12-01' THEN 'recent'
+		WHEN o.last_order_date >= '2019-12-01' THEN 'recent'
         ELSE 'past'
 	END AS Recency
 	, CASE 
