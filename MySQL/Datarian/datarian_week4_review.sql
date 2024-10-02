@@ -68,17 +68,17 @@ SELECT date
         , COUNT(DISTINCT order_id) AS order_cnts
 FROM onlinesales
 GROUP BY customer_id, date
-ORDER BY date;
+ORDER BY date, customer_id;
 
--- 지역별 ARPPU를 순위별로 추출
+-- 지역별 매출액, PU, 1인당 매출액을 1인당 매출액 순위별로 추출
 SELECT c.local
 		, ROUND(SUM(o.quantity * o.avg_cost), 2) AS local_revenue
         , COUNT(DISTINCT o.customer_id) AS PU
-        , ROUND(SUM(o.quantity * o.avg_cost) / COUNT(DISTINCT o.customer_id), 2) AS ARPPU
+        , ROUND(SUM(o.quantity * o.avg_cost) / COUNT(DISTINCT o.customer_id), 2) AS LRPPU
 FROM customer AS c
 	INNER JOIN onlinesales AS o ON c.customer_id = o.customer_id
 GROUP BY c.local
-ORDER BY ARPPU DESC;
+ORDER BY LRPPU DESC;
 
 -- Chicago 지역에서 제품 카테고리별 주문수, 주문금액
 SELECT o.category
